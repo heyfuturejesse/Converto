@@ -9,11 +9,50 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var initialUnitNumber = ""
+    
+    var outputFah: Double {
+        let initUnitNumber = Double(initialUnitNumber) ?? 0.0
+        let converter = initUnitNumber * 9/5 + 32
+        return converter
+    }
+    
+    var outputCel: Double {
+        let initUnitNumber = Double(initialUnitNumber) ?? 0.0
+        let converter = initUnitNumber
+        return converter
+    }
+    
+    var outputKel: Double {
+        let initUnitNumber = Double(initialUnitNumber) ?? 0.0
+        let converter = initUnitNumber + 273.15
+        return converter
+    }
+
     var body: some View {
-        Text("Hello, World.")
+        NavigationView {
+            Form {
+                Section(header: Text("Input Temperature here")) {
+                    TextField("0", text: $initialUnitNumber)
+                        .keyboardType(.decimalPad)
+                }
+                
+                Section(header: Text("Output in Fahrenheit")) {
+                    Text("\(outputFah)")
+                }
+                
+                Section(header: Text("Output in Celsius")) {
+                    Text("\(outputCel)")
+                }
+                
+                Section(header: Text("Output in Kelvin")) {
+                    Text("\(outputKel)")
+                }
+            }
+            .navigationBarTitle("Converto")
+        }
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
